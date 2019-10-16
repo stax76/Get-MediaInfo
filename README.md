@@ -28,7 +28,7 @@ Go to the release page and download the release. It contains one ps1 file and tw
 
 **Get the artist from a MP3 file.**
 
-```
+```PowerShell
 Get-MediaInfo '.\Meg Myers - Desire (Hucci Remix).mp3' -Kind General -Parameter Performer
 
 Meg Myers
@@ -36,7 +36,7 @@ Meg Myers
 
 **Get the channel count in a MP3 file**  
 Return types are always strings und if necessary must be cast to integer.
-```
+```PowerShell
 '.\Meg Myers - Desire (Hucci Remix).mp3' | Get-MediaInfo -Kind Audio -Parameter 'Channel(s)'
 
 2
@@ -44,14 +44,14 @@ Return types are always strings und if necessary must be cast to integer.
 
 **Get the language of the second audio stream in a movie**  
 The Index parameter is zero based.
-```
+```PowerShell
 Get-MediaInfo '.\The Warriors.mkv' -Kind Audio -Index 1 -Parameter 'Language/String'
 
 English
 ```
 
 **Get the count of subtitle streams in a movie**  
-```
+```PowerShell
 Get-MediaInfo '.\The Warriors.mkv' -Kind General -Parameter 'TextCount'
 
 2
