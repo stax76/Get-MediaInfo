@@ -16,6 +16,8 @@ ALIASES
     gmi
 ```
 
+![Terminal](Terminal.png)
+
 ## Description
 
 Get-MediaInfo let's you access specific properties from media files.
