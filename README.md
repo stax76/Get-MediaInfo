@@ -70,3 +70,11 @@ Zero based stream number.
 
 **-Parameter**  
 Name of the property to get.
+
+## Input
+
+Input can be defined with the Path parameter or via pipe which also accepts FileInfo objects.
+
+## Output
+
+Output will always be of type string and must be cast to other types like integer if necessary.
