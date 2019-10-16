@@ -22,7 +22,7 @@ Get-MediaInfo let's you access specific properties from media files.
 
 ## Installation
 
-Go to the release page and download the release. It contains one ps1 file and two DLL files, keep all three files in the same folder and load Get-MediaInfo.ps1 via dot sourcing.
+Go to the release page and download the release. It contains one ps1 file and two dll files, keep all three files in the same folder and load Get-MediaInfo.ps1 via dot sourcing.
 
 ## Examples
 
