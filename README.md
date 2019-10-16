@@ -34,7 +34,7 @@ Get-MediaInfo '.\Meg Myers - Desire (Hucci Remix).mp3' -Kind General -Parameter 
 Meg Myers
 ```
 
-**Get the channel count in a MP3 file**
+**Get the channel count in a MP3 file**  
 Return types are always strings und if necessary must be cast to integer.
 ```
 '.\Meg Myers - Desire (Hucci Remix).mp3' | Get-MediaInfo -Kind Audio -Parameter 'Channel(s)'
@@ -42,7 +42,7 @@ Return types are always strings und if necessary must be cast to integer.
 2
 ```
 
-**Get the language of the second audio stream in a movie**
+**Get the language of the second audio stream in a movie**  
 The Index parameter is zero based.
 ```
 Get-MediaInfo '.\The Warriors.mkv' -Kind Audio -Index 1 -Parameter 'Language/String'
@@ -50,7 +50,7 @@ Get-MediaInfo '.\The Warriors.mkv' -Kind Audio -Index 1 -Parameter 'Language/Str
 English
 ```
 
-**Get the count of subtitle streams in a movie**
+**Get the count of subtitle streams in a movie**  
 ```
 Get-MediaInfo '.\The Warriors.mkv' -Kind General -Parameter 'TextCount'
 
@@ -59,14 +59,14 @@ Get-MediaInfo '.\The Warriors.mkv' -Kind General -Parameter 'TextCount'
 
 ## Parameters
 
-**-Path**
+**-Path**  
 Path to a media file.
 
-**-Kind** General | Video | Audio | Text | Image | Menu
+**-Kind** General | Video | Audio | Text | Image | Menu  
 A kind that is known to MediaInfo.
 
-**-Index**
+**-Index**  
 Zero based stream number.
 
-**-Parameter**
+**-Parameter**  
 Name of the property to get.
