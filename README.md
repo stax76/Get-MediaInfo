@@ -71,7 +71,7 @@ A kind that is known to MediaInfo. [MediaInfo.NET](https://github.com/stax76/Med
 Zero based stream number. 0 for the first audio track, 1 for the second and so on.
 
 **-Parameter**  
-Name of the property to get. [MediaInfo.NET](https://github.com/stax76/MediaInfo.NET) can show which parameter is needed, **in MediaInfo.NET raw view must be enabled**.
+Name of the property to get. [MediaInfo.NET](https://github.com/stax76/MediaInfo.NET) can show which parameter is needed, in MediaInfo.NET **raw view** must be enabled.
 
 ## Input
 
