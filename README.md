@@ -75,7 +75,7 @@ Name of the property to get. [MediaInfo.NET](https://github.com/stax76/MediaInfo
 
 ## Input
 
-Input can be defined with the Path parameter or via pipe which also accepts FileInfo objects.
+Input can be defined with the Path parameter, pipe input supports a single path or FileInfo object.
 
 ## Output
 

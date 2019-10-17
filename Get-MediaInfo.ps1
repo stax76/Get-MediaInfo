@@ -23,7 +23,11 @@ function Get-MediaInfo
     {
         $scriptFolder = Split-Path $PSCommandPath
         Add-Type -Path ($scriptFolder + '\MediaInfoNET.dll')
-        $Env:Path = $scriptFolder + ';' + $Env:Path
+
+        if ($Env:Path.IndexOf($scriptFolder + ';') -eq -1)
+        {
+            $Env:Path = $scriptFolder + ';' + $Env:Path
+        }
     }
 
     Process
