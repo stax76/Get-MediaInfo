@@ -209,7 +209,9 @@ Show a extended summary.
 
 **-Raw**
 
-Show not the friendly parameter names but rather as they are used in the MediaInfo API.
+Show not the friendly parameter names but rather the names as they are used in the MediaInfo API.
+
+Parameter names passed to Get-MediaInfoValue -Parameter must use the raw parameter name.
 
 ### Input
 
