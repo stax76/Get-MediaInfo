@@ -147,7 +147,9 @@ Zero based stream number.
 
 Name of the property to get.
 
-The property names can be seen with [MediaInfo.NET](https://github.com/stax76/MediaInfo.NET) with following setting enabled: Show parameter names as they are used in the MediaInfo API.
+The property names can be seen with [MediaInfo.NET](https://github.com/stax76/MediaInfo.NET) with following setting enabled:
+
+Show parameter names as they are used in the MediaInfo API
 
 They can also be seen with Get-MediaInfoSummary with the -Raw flag enabled.
 
