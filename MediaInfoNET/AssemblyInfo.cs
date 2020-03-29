@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MediaInfoNET")]
-[assembly: AssemblyDescription(".NET wrapper for the native MediaInfo library.")]
+[assembly: AssemblyDescription(".NET wrapper for the native MediaInfo library")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Frank Skare (stax76)")]
 [assembly: AssemblyProduct("MediaInfoNET")]
-[assembly: AssemblyCopyright("Copyright ©  2019 Frank Skare (stax76)")]
+[assembly: AssemblyCopyright("Copyright (C) 2019-2020 Frank Skare (stax76)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

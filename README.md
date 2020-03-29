@@ -1,11 +1,80 @@
 # Get-MediaInfo
 
+Get-MediaInfo is a complete PowerShell MediaInfo solution.
+
+It consists of three PowerShell advanced functions:
+
+Get-MediaInfo
+
+Get-MediaInfoValue
+
+Get-MediaInfoSummary
+
+## Installation
+
+Go to the release page and download the release. It contains one PS1 file and two DLL files, keep all three files in the same directory and load the PS1 file via [dot sourcing](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_scripts?view=powershell-7#script-scope-and-dot-sourcing) into your profile.
+
+On x86 replace MediaInfo.dll with the x86 version found on the [MediaInfo website](https://mediaarea.net/en/MediaInfo).
+
+## Get-MediaInfo
+
+Converts media file objects into MediaInfo objects.
+
 ```
 NAME
     Get-MediaInfo
 
 SYNTAX
-    Get-MediaInfo
+    Get-MediaInfo [[-Path] <string[]>] [-Video] [-Audio]  [<CommonParameters>]
+
+ALIASES
+    gmi
+```
+
+### Description
+
+Converts media file objects into MediaInfo objects.
+
+### Examples
+
+```PowerShell
+Get-ChildItem 'D:\Samples' | Get-MediaInfo | Out-GridView
+```
+
+![Get-MediaInfo](Get-MediaInfo.png)
+
+### Parameters
+
+**-Path**
+
+String array with audio or video files or FileInfo objects via pipeline.
+
+**-Video**
+
+Only video files will be processed.
+
+**-Audio**
+
+Only audio files will be processed.
+
+### Input
+
+String array with audio or video files as Path parameter or FileInfo objects via pipeline.
+
+### Output
+
+MediaInfo objects.
+
+## Get-MediaInfoValue
+
+Returns specific properties from media files.
+
+```
+NAME
+    Get-MediaInfoValue
+
+SYNTAX
+    Get-MediaInfoValue
         [-Path] <string>
         [-Kind] {General | Video | Audio | Text | Image | Menu}
         [[-Index] <int>]
@@ -13,70 +82,137 @@ SYNTAX
         [<CommonParameters>]
 
 ALIASES
-    gmi
+    gmiv
 ```
 
-![](Terminal.png)
+### Description
 
-## Description
+Returns specific properties from media files.
 
-Get-MediaInfo let's you access specific properties from media files.
-
-## Installation
-
-Go to the release page and download the release. It contains one ps1 file and two dll files, keep all three files in the same folder and load Get-MediaInfo.ps1 via dot sourcing.
-
-## Examples
+### Examples
 
 **Get the artist from a MP3 file.**
 
 ```PowerShell
-Get-MediaInfo '.\Meg Myers - Desire (Hucci Remix).mp3' -Kind General -Parameter Performer
+Get-MediaInfoValue '.\Meg Myers - Desire (Hucci Remix).mp3' -Kind General -Parameter Performer
 
 Meg Myers
 ```
 
-**Get the channel count in a MP3 file**  
+**Get the channel count in a MP3 file** 
+
 Return types are always strings und if necessary must be cast to integer.
+
 ```PowerShell
-'.\Meg Myers - Desire (Hucci Remix).mp3' | Get-MediaInfo -Kind Audio -Parameter 'Channel(s)'
+'.\Meg Myers - Desire (Hucci Remix).mp3' | Get-MediaInfoValue -Kind Audio -Parameter 'Channel(s)'
 
 2
 ```
 
-**Get the language of the second audio stream in a movie**  
+**Get the language of the second audio stream in a movie**
+
 The Index parameter is zero based.
+
 ```PowerShell
-Get-MediaInfo '.\The Warriors.mkv' -Kind Audio -Index 1 -Parameter 'Language/String'
+Get-MediaInfoValue '.\The Warriors.mkv' -Kind Audio -Index 1 -Parameter 'Language/String'
 
 English
 ```
 
-**Get the count of subtitle streams in a movie**  
+**Get the count of subtitle streams in a movie**
+
 ```PowerShell
-Get-MediaInfo '.\The Warriors.mkv' -Kind General -Parameter 'TextCount'
+Get-MediaInfoValue '.\The Warriors.mkv' -Kind General -Parameter 'TextCount'
 
 2
 ```
 
-## Parameters
+### Parameters
 
-**-Path**  
+**-Path**
+
 Path to a media file.
 
-**-Kind** General | Video | Audio | Text | Image | Menu  
-A kind that is known to MediaInfo. [MediaInfo.NET](https://github.com/stax76/MediaInfo.NET) can show which kind is needed.
+**-Kind** General | Video | Audio | Text | Image | Menu
 
-**-Index**  
-Zero based stream number. 0 for the first audio track, 1 for the second and so on.
+A MediaInfo kind.
 
-**-Parameter**  
-Name of the property to get. [MediaInfo.NET](https://github.com/stax76/MediaInfo.NET) can show which parameter is needed, in MediaInfo.NET **raw view** must be enabled.
+Kinds and their properties can be seen with [MediaInfo.NET](https://github.com/stax76/MediaInfo.NET).
 
-## Input
+**-Index**
 
-Input can be defined with the Path parameter, pipe input supports a single path or FileInfo object.
+Zero based stream number.
 
-## Output
+**-Parameter**
+
+Name of the property to get.
+
+Properties can be seen with [MediaInfo.NET](https://github.com/stax76/MediaInfo.NET).
+
+In the MediaInfo.NET settings enable: Show parameter names as they are used in the MediaInfo API.
+
+### Input
+
+Input can be defined with the Path parameter, pipe input supports a path as string or a FileInfo object.
+
+### Output
 
 Output will always be of type string and must be cast to other types like integer if necessary.
+
+### Using the .NET class directly for highest possible performance
+
+To retrieve specific properties with highest possible performance the .NET class must be used directly:
+
+```
+$mi = New-Object MediaInfo -ArgumentList $Path
+$value1 = $mi.GetInfo($Kind, $Index, $Parameter)
+$value2 = $mi.GetInfo($Kind, $Index, $Parameter)
+$mi.Dispose()
+```
+
+## Get-MediaInfoSummary
+
+Shows a summary in text format for a media file.
+
+```
+NAME
+    Get-MediaInfoSummary
+
+SYNTAX
+    Get-MediaInfoSummary [-Path] <string> [-Full] [-Raw]  [<CommonParameters>]
+
+ALIASES
+    gmis
+```
+
+### Description
+
+Shows a summary in text format for a media file.
+
+### Examples
+
+```
+ Get-MediaInfoSummary 'D:\Samples\Downton Abbey.mkv'
+```
+
+### Parameters
+
+**-Path**
+
+Path to a media file. Can also be passed via pipeline.
+
+**-Full**
+
+Show a extended summary.
+
+**-Raw**
+
+Show not the friendly parameter names but rather as they are used in the MediaInfo API.
+
+### Input
+
+Path as string to a media file. Can also be passed via pipeline.
+
+### Output
+
+A summary line by line as string array.
