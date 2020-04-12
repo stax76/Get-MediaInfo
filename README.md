@@ -134,7 +134,7 @@ Returns specific properties from media files.
 Examples
 --------
 
-**Get the artist from a MP3 file.**
+Get the artist from a MP3 file.
 
 ```PowerShell
 Get-MediaInfoValue '.\Meg Myers - Desire (Hucci Remix).mp3' -Kind General -Parameter Performer
@@ -143,9 +143,7 @@ Meg Myers
 ```
 
 
-**Get the channel count in a MP3 file** 
-
-Return types are always strings und if necessary must be cast to integer.
+Get the channel count in a MP3 file. Return types are always strings und if necessary must be cast to integer.
 
 ```PowerShell
 '.\Meg Myers - Desire (Hucci Remix).mp3' | Get-MediaInfoValue -Kind Audio -Parameter 'Channel(s)'
@@ -154,7 +152,7 @@ Return types are always strings und if necessary must be cast to integer.
 ```
 
 
-**Get the language of the second audio stream in a movie**
+Get the language of the second audio stream in a movie.
 
 The Index parameter is zero based.
 
@@ -165,7 +163,7 @@ English
 ```
 
 
-**Get the count of subtitle streams in a movie**
+Get the count of subtitle streams in a movie.
 
 ```PowerShell
 Get-MediaInfoValue '.\The Warriors.mkv' -Kind General -Parameter 'TextCount'
