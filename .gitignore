@@ -1,7 +1,8 @@
 ﻿
-/MediaInfoNET/bin
-/MediaInfoNET/obj
-/MediaInfoNET/.vs
+MediaInfoNET/bin
+MediaInfoNET/obj
+MediaInfoNET/.vs
 
-/MediaInfoNET.dll
+MediaInfo.dll
+MediaInfoNET.dll
 MediaInfoNET.pdb
