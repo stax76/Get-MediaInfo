@@ -14,9 +14,9 @@ Get-MediaInfoValue
 Get-MediaInfoSummary
 ```
 
-![Get-MediaInfo](Summary.png)
+![-](Summary.jpg)
 
-![Get-MediaInfo](GridView.png)
+![-](GridView.png)
 
 
 Installation
