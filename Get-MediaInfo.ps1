@@ -250,5 +250,3 @@ function Get-MediaInfoSummary
         ("`r`n" + $value) -split "`r`n"
     }
 }
-
-# gci 'D:\Samples' | gmi | ogv
