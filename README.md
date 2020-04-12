@@ -62,14 +62,14 @@ Get-ChildItem 'D:\Samples' | Get-MediaInfo | Out-GridView
 
 Same as above but using the current folder and aliases.
 
-```
+```PowerShell
 gci | gmi | ogv
 ```
 
 
 Find duplicates by comparing the duration.
 
-```
+```PowerShell
 gci | gmi | select filename, duration, filesize | group duration | where { $_.count -gt 1 } | select -expand group | format-list
 ```
 
@@ -251,7 +251,7 @@ Shows a summary in text format for a media file.
 Examples
 --------
 
-```
+```PowerShell
  Get-MediaInfoSummary 'D:\Samples\Downton Abbey.mkv'
 ```
 
