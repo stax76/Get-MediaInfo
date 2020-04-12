@@ -14,6 +14,8 @@ Get-MediaInfoValue
 Get-MediaInfoSummary
 ```
 
+![Get-MediaInfo](Summary.png)
+
 ![Get-MediaInfo](GridView.png)
 
 
