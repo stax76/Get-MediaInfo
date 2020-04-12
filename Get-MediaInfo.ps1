@@ -1,7 +1,41 @@
 
+$ErrorActionPreference = 'Stop'
+
 $VideoExtensions = "264", "265", "asf", "avc", "avi", "divx", "flv", "h264", "h265", "hevc", "m2ts", "m2v", "m4v", "mkv", "mov", "mp4", "mpeg", "mpg", "mpv", "mts", "rar", "ts", "vob", "webm", "wmv"
 $AudioExtensions = "aac", "ac3", "dts", "dtshd", "dtshr", "dtsma", "eac3", "flac", "m4a", "mka", "mp2", "mp3", "mpa", "ogg", "opus", "thd", "thd+ac3", "w64", "wav"
-$CacheVersion    = 31
+$CacheVersion    = 43
+
+$culture = [Globalization.CultureInfo]::InvariantCulture
+
+function ConvertStringToInt($value)
+{
+    try {
+        [int]::Parse($value, $culture)
+    }
+    catch {
+        0
+    }
+}
+
+function ConvertStringToDouble($value)
+{
+    try {
+        [double]::Parse($value, $culture)
+    }
+    catch {
+        0.0
+    }
+}
+
+function ConvertStringToLong($value)
+{
+    try {
+        [long]::Parse($value, $culture)
+    }
+    catch {
+        [long]0
+    }
+}
 
 function Get-MediaInfo
 {
@@ -48,7 +82,7 @@ function Get-MediaInfo
                 }
             }
 
-            $cacheFile = [IO.Path]::GetTempPath() + '\' + $ChacheFileBase + '.json'
+            $cacheFile = Join-Path ([IO.Path]::GetTempPath()) ($ChacheFileBase + '.json')
 
             if (-not $Video -and -not $Audio)
             {
@@ -83,13 +117,13 @@ function Get-MediaInfo
                         FileName       = [IO.Path]::GetFileName($File)
                         Ext            = $Extension
                         Format         = $Format
-                        DAR            = $mi.GetInfo('Video',   0, 'DisplayAspectRatio')
-                        Width          = $mi.GetInfo('Video',   0, 'Width')
-                        Height         = $mi.GetInfo('Video',   0, 'Height')
-                        BitRate        = [int]$mi.GetInfo('Video',   0, 'BitRate') / 1000
-                        Duration       = [double]::Parse($mi.GetInfo('General', 0, 'Duration'), [Globalization.CultureInfo]::InvariantCulture) / 60000
-                        FileSize       = [long]$mi.GetInfo('General', 0, 'FileSize') / 1024 / 1024
-                        FrameRate      = $mi.GetInfo('Video',   0, 'FrameRate')
+                        DAR            = ConvertStringToDouble $mi.GetInfo('Video', 0, 'DisplayAspectRatio')
+                        Width          = ConvertStringToInt $mi.GetInfo('Video',   0, 'Width')
+                        Height         = ConvertStringToInt $mi.GetInfo('Video',   0, 'Height')
+                        BitRate        = (ConvertStringToInt $mi.GetInfo('Video', 0, 'BitRate')) / 1000
+                        Duration       = (ConvertStringToDouble $mi.GetInfo('General', 0, 'Duration')) / 60000
+                        FileSize       = (ConvertStringToLong $mi.GetInfo('General', 0, 'FileSize')) / 1024 / 1024
+                        FrameRate      = ConvertStringToDouble $mi.GetInfo('Video',   0, 'FrameRate')
                         ScanType       = $mi.GetInfo('Video',   0, 'ScanType')
                         ColorPrimaries = $mi.GetInfo('Video',   0, 'colour_primaries')
                         Transfer       = $mi.GetInfo('Video',   0, 'transfer_characteristics')
@@ -123,9 +157,9 @@ function Get-MediaInfo
                         Album       = $mi.GetInfo('General', 0, 'Album')
                         Year        = $mi.GetInfo('General', 0, 'Recorded_Date')
                         Genre       = $mi.GetInfo('General', 0, 'Genre')
-                        Duration    = [double]::Parse($mi.GetInfo('General', 0, 'Duration'), [Globalization.CultureInfo]::InvariantCulture) / 60000
-                        BitRate     = [int]$mi.GetInfo('Audio',   0, 'BitRate') / 1000
-                        FileSize    = [long]$mi.GetInfo('General', 0, 'FileSize') / 1024 / 1024
+                        Duration    = (ConvertStringToDouble $mi.GetInfo('General', 0, 'Duration')) / 60000
+                        BitRate     = (ConvertStringToInt $mi.GetInfo('Audio',   0, 'BitRate')) / 1000
+                        FileSize    = (ConvertStringToLong $mi.GetInfo('General', 0, 'FileSize')) / 1024 / 1024
                         Directory   = [IO.Path]::GetDirectoryName($File)
                     }
 
@@ -216,3 +250,5 @@ function Get-MediaInfoSummary
         ("`r`n" + $value) -split "`r`n"
     }
 }
+
+# gci 'D:\Samples' | gmi | ogv
