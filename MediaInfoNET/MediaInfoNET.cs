@@ -2,20 +2,22 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 public class MediaInfoNET : IDisposable
 {
-    public static string DllPath { get; set; }
-
     IntPtr Handle;
     static bool Loaded;
 
     public MediaInfoNET(string path)
     {
-        if (!Loaded && File.Exists(DllPath))
+        if (!Loaded)
         {
-            if (IntPtr.Zero == LoadLibrary(DllPath))
+            string assemblyDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string dllPath = Path.Combine(assemblyDir, "MediaInfo.dll");
+
+            if (File.Exists(dllPath) && LoadLibrary(dllPath) == IntPtr.Zero)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
 
             Loaded = true;

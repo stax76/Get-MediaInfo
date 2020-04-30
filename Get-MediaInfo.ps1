@@ -6,17 +6,6 @@ $AudioExtensions = "aac", "ac3", "dts", "dtshd", "dtshr", "dtsma", "eac3", "flac
 $CacheVersion    = 43
 $Culture         = [Globalization.CultureInfo]::InvariantCulture
 
-function Init
-{
-    if (-not $script:WasInitialized)
-    {
-
-        Add-Type -Path ((Split-Path $PSCommandPath) + '\MediaInfoNET.dll')
-        [MediaInfoNET]::DllPath = (Split-Path $PSCommandPath) + '\MediaInfo.dll'
-        $script:WasInitialized = $true
-    }
-}
-
 function ConvertStringToInt($value)
 {
     try {
@@ -62,7 +51,7 @@ function Get-MediaInfo
 
     begin
     {
-        Init
+        Add-Type -Path ((Split-Path $PSCommandPath) + '\MediaInfoNET.dll')
     }
 
     Process
@@ -198,7 +187,7 @@ function Get-MediaInfoValue
 
     begin
     {
-        Init
+        Add-Type -Path ((Split-Path $PSCommandPath) + '\MediaInfoNET.dll')
     }
 
     Process
@@ -231,7 +220,7 @@ function Get-MediaInfoSummary
 
     begin
     {
-        Init
+        Add-Type -Path ((Split-Path $PSCommandPath) + '\MediaInfoNET.dll')
     }
 
     Process
