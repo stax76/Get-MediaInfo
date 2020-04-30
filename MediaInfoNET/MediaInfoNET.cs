@@ -4,14 +4,14 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
 
-public class MediaInfo : IDisposable
+public class MediaInfoNET : IDisposable
 {
     public static string DllPath { get; set; }
 
     IntPtr Handle;
     static bool Loaded;
 
-    public MediaInfo(string path)
+    public MediaInfoNET(string path)
     {
         if (!Loaded && File.Exists(DllPath))
         {
@@ -59,7 +59,7 @@ public class MediaInfo : IDisposable
         }
     }
 
-    ~MediaInfo()
+    ~MediaInfoNET()
     {
         Dispose();
     }

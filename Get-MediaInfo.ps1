@@ -4,13 +4,23 @@ $ErrorActionPreference = 'Stop'
 $VideoExtensions = "264", "265", "asf", "avc", "avi", "divx", "flv", "h264", "h265", "hevc", "m2ts", "m2v", "m4v", "mkv", "mov", "mp4", "mpeg", "mpg", "mpv", "mts", "rar", "ts", "vob", "webm", "wmv"
 $AudioExtensions = "aac", "ac3", "dts", "dtshd", "dtshr", "dtsma", "eac3", "flac", "m4a", "mka", "mp2", "mp3", "mpa", "ogg", "opus", "thd", "thd+ac3", "w64", "wav"
 $CacheVersion    = 43
+$Culture         = [Globalization.CultureInfo]::InvariantCulture
 
-$culture = [Globalization.CultureInfo]::InvariantCulture
+function Init
+{
+    if (-not $script:WasInitialized)
+    {
+
+        Add-Type -Path ((Split-Path $PSCommandPath) + '\MediaInfoNET.dll')
+        [MediaInfoNET]::DllPath = (Split-Path $PSCommandPath) + '\MediaInfo.dll'
+        $script:WasInitialized = $true
+    }
+}
 
 function ConvertStringToInt($value)
 {
     try {
-        [int]::Parse($value, $culture)
+        [int]::Parse($value, $Culture)
     }
     catch {
         0
@@ -20,7 +30,7 @@ function ConvertStringToInt($value)
 function ConvertStringToDouble($value)
 {
     try {
-        [double]::Parse($value, $culture)
+        [double]::Parse($value, $Culture)
     }
     catch {
         0.0
@@ -30,7 +40,7 @@ function ConvertStringToDouble($value)
 function ConvertStringToLong($value)
 {
     try {
-        [long]::Parse($value, $culture)
+        [long]::Parse($value, $Culture)
     }
     catch {
         [long]0
@@ -52,13 +62,7 @@ function Get-MediaInfo
 
     begin
     {
-        $ScriptDir = Split-Path $PSCommandPath
-        Add-Type -Path ($ScriptDir + '\MediaInfoNET.dll')
-
-        if (-not $Env:Path.Contains($ScriptDir + ';'))
-        {
-            $Env:Path = $ScriptDir + ';' + $Env:Path
-        }
+        Init
     }
 
     Process
@@ -104,7 +108,7 @@ function Get-MediaInfo
                 }
                 else
                 {
-                    $mi = New-Object MediaInfo -ArgumentList $File
+                    $mi = New-Object MediaInfoNET -ArgumentList $File
 
                     $Format = $mi.GetInfo('Video', 0, 'Format')
 
@@ -146,7 +150,7 @@ function Get-MediaInfo
                 }
                 else
                 {
-                    $mi = New-Object MediaInfo -ArgumentList $File
+                    $mi = New-Object MediaInfoNET -ArgumentList $File
 
                     $obj = [PSCustomObject]@{
                         FileName    = [IO.Path]::GetFileName($File)
@@ -194,18 +198,12 @@ function Get-MediaInfoValue
 
     begin
     {
-        $ScriptDir = Split-Path $PSCommandPath
-        Add-Type -Path ($ScriptDir + '\MediaInfoNET.dll')
-
-        if (-not $Env:Path.Contains($ScriptDir + ';'))
-        {
-            $Env:Path = $ScriptDir + ';' + $Env:Path
-        }
+        Init
     }
 
     Process
     {
-        $mi = New-Object MediaInfo -ArgumentList $Path
+        $mi = New-Object MediaInfoNET -ArgumentList $Path
         $value = $mi.GetInfo($Kind, $Index, $Parameter)
         $mi.Dispose()
         return $value
@@ -233,18 +231,12 @@ function Get-MediaInfoSummary
 
     begin
     {
-        $ScriptDir = Split-Path $PSCommandPath
-        Add-Type -Path ($ScriptDir + '\MediaInfoNET.dll')
-
-        if (-not $Env:Path.Contains($ScriptDir + ';'))
-        {
-            $Env:Path = $ScriptDir + ';' + $Env:Path
-        }
+        Init
     }
 
     Process
     {
-        $mi = New-Object MediaInfo -ArgumentList $Path
+        $mi = New-Object MediaInfoNET -ArgumentList $Path
         $value = $mi.GetSummary($Full, $Raw)
         $mi.Dispose()
         ("`r`n" + $value) -split "`r`n"
