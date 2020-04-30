@@ -1,18 +1,21 @@
 ﻿
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.InteropServices;
 
 public class MediaInfo : IDisposable
 {
+    public static string DllPath { get; set; }
+
     IntPtr Handle;
     static bool Loaded;
 
     public MediaInfo(string path)
     {
-        if (!Loaded)
+        if (!Loaded && File.Exists(DllPath))
         {
-            if (IntPtr.Zero == LoadLibrary("MediaInfo.dll"))
+            if (IntPtr.Zero == LoadLibrary(DllPath))
                 throw new Win32Exception(Marshal.GetLastWin32Error());
 
             Loaded = true;
