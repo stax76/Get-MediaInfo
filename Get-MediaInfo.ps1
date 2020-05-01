@@ -63,6 +63,11 @@ function Get-MediaInfo
                 continue
             }
 
+            if (-not $File.Contains(':\'))
+            {
+                $File = (Resolve-Path $File).Path
+            }
+
             $Extension = [IO.Path]::GetExtension($File).TrimStart([char]'.')
 
             $ChacheFileBase = $File + '-' + (Get-Item $File).Length + '-' + $CacheVersion
@@ -192,7 +197,7 @@ function Get-MediaInfoValue
 
     Process
     {
-        $mi = New-Object MediaInfoNET -ArgumentList $Path
+        $mi = New-Object MediaInfoNET -ArgumentList ((Resolve-Path $Path).Path)
         $value = $mi.GetInfo($Kind, $Index, $Parameter)
         $mi.Dispose()
         return $value
@@ -225,7 +230,7 @@ function Get-MediaInfoSummary
 
     Process
     {
-        $mi = New-Object MediaInfoNET -ArgumentList $Path
+        $mi = New-Object MediaInfoNET -ArgumentList ((Resolve-Path $Path).Path)
         $value = $mi.GetSummary($Full, $Raw)
         $mi.Dispose()
         ("`r`n" + $value) -split "`r`n"
