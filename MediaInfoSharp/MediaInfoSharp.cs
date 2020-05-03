@@ -5,12 +5,12 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-public class MediaInfoNET : IDisposable
+public class MediaInfoSharp : IDisposable
 {
     IntPtr Handle;
     static bool Loaded;
 
-    public MediaInfoNET(string path)
+    public MediaInfoSharp(string path)
     {
         if (!Loaded)
         {
@@ -61,7 +61,7 @@ public class MediaInfoNET : IDisposable
         }
     }
 
-    ~MediaInfoNET()
+    ~MediaInfoSharp()
     {
         Dispose();
     }

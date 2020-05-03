@@ -7,8 +7,8 @@
     <ProjectGuid>{224C544E-159E-4271-AE8E-96536C166C63}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MediaInfoNET</RootNamespace>
-    <AssemblyName>MediaInfoNET</AssemblyName>
+    <RootNamespace>MediaInfoSharp</RootNamespace>
+    <AssemblyName>MediaInfoSharp</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MediaInfoNET.cs" />
+    <Compile Include="MediaInfoSharp.cs" />
     <Compile Include="AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
