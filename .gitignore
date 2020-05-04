@@ -1,11 +1,5 @@
 ﻿
-MediaInfoNET/bin
-MediaInfoNET/obj
-MediaInfoNET/.vs
-
 MediaInfo.dll
-MediaInfoNET.dll
-MediaInfoNET.pdb
 MediaInfoSharp.dll
 MediaInfoSharp.pdb
-MediaInfoSharp/.vs/MediaInfoSharp/v16/.suo
+MediaInfoSharp/.vs
