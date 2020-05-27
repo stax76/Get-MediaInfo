@@ -53,15 +53,15 @@ function Get-MediaInfo
     {
         foreach ($file in $Path)
         {
-            $file = Convert-Path $file
+            $file = Convert-Path -LiteralPath $file
 
-            if (-not (Test-Path $file -PathType Leaf))
+            if (-not (Test-Path -LiteralPath $file -PathType Leaf))
             {
                 continue
             }
 
             $extension = [IO.Path]::GetExtension($file).TrimStart([char]'.')
-            $chacheFileBase = $file + '-' + (Get-Item $file).Length + '-' + $cacheVersion
+            $chacheFileBase = $file + '-' + (Get-Item -LiteralPath $file).Length + '-' + $cacheVersion
 
             foreach ($char in [IO.Path]::GetInvalidFileNameChars())
             {
@@ -71,7 +71,7 @@ function Get-MediaInfo
                 }
             }
 
-            $cacheFile = Join-Path ([IO.Path]::GetTempPath()) ($chacheFileBase + '.json')
+            $cacheFile = Join-Path -Path ([IO.Path]::GetTempPath()) ($chacheFileBase + '.json')
 
             if (-not $Video -and -not $Audio)
             {
@@ -87,13 +87,13 @@ function Get-MediaInfo
 
             if ($Video -and $videoExtensions -contains $extension)
             {
-                if (Test-Path $cacheFile)
+                if (Test-Path -LiteralPath $cacheFile)
                 {
-                    Get-Content $cacheFile -Raw | ConvertFrom-Json
+                    Get-Content -LiteralPath $cacheFile -Raw | ConvertFrom-Json
                 }
                 else
                 {
-                    $mi = New-Object MediaInfoSharp -ArgumentList $file
+                    $mi = New-Object -TypeName MediaInfoSharp -ArgumentList $file
 
                     $format = $mi.GetInfo('Video', 0, 'Format')
 
@@ -123,19 +123,19 @@ function Get-MediaInfo
                     }
 
                     $mi.Dispose()
-                    $obj | ConvertTo-Json | Out-File $cacheFile -Encoding UTF8
+                    $obj | ConvertTo-Json | Out-File -LiteralPath $cacheFile -Encoding UTF8
                     $obj
                 }
             }
             elseif ($Audio -and $audioExtensions -contains $extension)
             {
-                if (Test-Path $cacheFile)
+                if (Test-Path -LiteralPath $cacheFile)
                 {
-                    Get-Content $cacheFile -Raw | ConvertFrom-Json
+                    Get-Content -LiteralPath $cacheFile -Raw | ConvertFrom-Json
                 }
                 else
                 {
-                    $mi = New-Object MediaInfoSharp -ArgumentList $file
+                    $mi = New-Object -TypeName MediaInfoSharp -ArgumentList $file
 
                     $obj = [PSCustomObject]@{
                         FileName    = [IO.Path]::GetFileName($file)
@@ -153,7 +153,7 @@ function Get-MediaInfo
                     }
 
                     $mi.Dispose()
-                    $obj | ConvertTo-Json | Out-File $cacheFile -Encoding UTF8
+                    $obj | ConvertTo-Json | Out-File -LiteralPath $cacheFile -Encoding UTF8
                     $obj
                 }
             }
@@ -188,7 +188,7 @@ function Get-MediaInfoValue
 
     Process
     {
-        $mi = New-Object MediaInfoSharp -ArgumentList (Convert-Path $Path)
+        $mi = New-Object -TypeName MediaInfoSharp -ArgumentList (Convert-Path -LiteralPath $Path)
         $value = $mi.GetInfo($Kind, $Index, $Parameter)
         $mi.Dispose()
         return $value
@@ -221,7 +221,7 @@ function Get-MediaInfoSummary
 
     Process
     {
-        $mi = New-Object MediaInfoSharp -ArgumentList (Convert-Path $Path)
+        $mi = New-Object -TypeName MediaInfoSharp -ArgumentList (Convert-Path -LiteralPath $Path)
         $value = $mi.GetSummary($Full, $Raw)
         $mi.Dispose()
         ("`r`n" + $value) -split "`r`n"
