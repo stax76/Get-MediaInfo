@@ -1,7 +1,7 @@
 
 $videoExtensions = "264", "265", "asf", "avc", "avi", "divx", "flv", "h264", "h265", "hevc", "m2ts", "m2v", "m4v", "mkv", "mov", "mp4", "mpeg", "mpg", "mpv", "mts", "rar", "ts", "vob", "webm", "wmv"
 $audioExtensions = "aac", "ac3", "dts", "dtshd", "dtshr", "dtsma", "eac3", "flac", "m4a", "mka", "mp2", "mp3", "mpa", "ogg", "opus", "thd", "thd+ac3", "w64", "wav"
-$cacheVersion    = 43
+$cacheVersion    = 44
 $culture         = [Globalization.CultureInfo]::InvariantCulture
 
 function ConvertStringToInt($value)
@@ -113,12 +113,12 @@ function Get-MediaInfo
                         Duration       = (ConvertStringToDouble $mi.GetInfo('General', 0, 'Duration')) / 60000
                         FileSize       = (ConvertStringToLong $mi.GetInfo('General', 0, 'FileSize')) / 1024 / 1024
                         FrameRate      = ConvertStringToDouble $mi.GetInfo('Video', 0, 'FrameRate')
+                        AudioCodec     = $mi.GetInfo('General', 0, 'Audio_Codec_List')
+                        TextFormat     = $mi.GetInfo('General', 0, 'Text_Format_List')
                         ScanType       = $mi.GetInfo('Video',   0, 'ScanType')
                         ColorPrimaries = $mi.GetInfo('Video',   0, 'colour_primaries')
                         Transfer       = $mi.GetInfo('Video',   0, 'transfer_characteristics')
                         FormatProfile  = $mi.GetInfo('Video',   0, 'Format_Profile')
-                        AudioCodec     = $mi.GetInfo('General', 0, 'Audio_Codec_List')
-                        TextFormat     = $mi.GetInfo('General', 0, 'Text_Format_List')
                         Directory      = [IO.Path]::GetDirectoryName($file)
                     }
 
