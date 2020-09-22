@@ -1,6 +1,6 @@
 
-$videoExtensions = "264", "265", "asf", "avc", "avi", "divx", "flv", "h264", "h265", "hevc", "m2ts", "m2v", "m4v", "mkv", "mov", "mp4", "mpeg", "mpg", "mpv", "mts", "rar", "ts", "vob", "webm", "wmv"
-$audioExtensions = "aac", "ac3", "dts", "dtshd", "dtshr", "dtsma", "eac3", "flac", "m4a", "mka", "mp2", "mp3", "mpa", "ogg", "opus", "thd", "thd+ac3", "w64", "wav"
+$videoExtensions = '264', '265', 'asf', 'avc', 'avi', 'divx', 'flv', 'h264', 'h265', 'hevc', 'm2ts', 'm2v', 'm4v', 'mkv', 'mov', 'mp4', 'mpeg', 'mpg', 'mpv', 'mts', 'rar', 'ts', 'vob', 'webm', 'wmv'
+$audioExtensions = 'aac', 'ac3', 'dts', 'dtshd', 'dtshr', 'dtsma', 'eac3', 'flac', 'm4a', 'mka', 'mp2', 'mp3', 'mpa', 'ogg', 'opus', 'thd', 'thd+ac3', 'w64', 'wav'
 $cacheVersion    = 44
 $culture         = [Globalization.CultureInfo]::InvariantCulture
 
@@ -34,7 +34,7 @@ function ConvertStringToLong($value)
 function Get-MediaInfo
 {
     [CmdletBinding()]
-    [Alias("gmi")]
+    [Alias('gmi')]
     Param(
         [parameter(ValueFromPipelineByPropertyName)]
         [Alias('FullName')]
@@ -164,7 +164,7 @@ function Get-MediaInfo
 function Get-MediaInfoValue
 {
     [CmdletBinding()]
-    [Alias("gmiv")]
+    [Alias('gmiv')]
     Param(
         [Parameter(
             Mandatory=$true,
@@ -172,7 +172,7 @@ function Get-MediaInfoValue
         [string] $Path,
 
         [Parameter(Mandatory=$true)]
-        [ValidateSet("General", "Video", "Audio", "Text", "Image", "Menu")]
+        [ValidateSet('General', 'Video', 'Audio', 'Text', 'Image', 'Menu')]
         [String] $Kind,
 
         [int] $Index,
@@ -198,7 +198,7 @@ function Get-MediaInfoValue
 function Get-MediaInfoSummary
 {
     [CmdletBinding()]
-    [Alias("gmis")]
+    [Alias('gmis')]
     Param(
         [Parameter(
             Mandatory = $true,

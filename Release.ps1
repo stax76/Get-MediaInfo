@@ -1,7 +1,12 @@
 
-$targetDir = [Environment]::GetFolderPath('Desktop') + '\Get-MediaInfo-3.3'
+$targetDir = [Environment]::GetFolderPath('Desktop') + '\Get-MediaInfo'
 New-Item -Path $targetDir -ItemType Directory | Out-Null
-Copy-Item .\MediaInfo.dll "$targetDir\MediaInfo.dll"
+Copy-Item .\MediaInfo.dll      "$targetDir\MediaInfo.dll"
 Copy-Item .\MediaInfoSharp.dll "$targetDir\MediaInfoSharp.dll"
-Copy-Item .\Get-MediaInfo.ps1 "$targetDir\Get-MediaInfo.ps1"
-& 'C:\Program Files\7-Zip\7z.exe' a -t7z -mx9 "$targetDir.7z" -r "$targetDir\*"
+Copy-Item .\MediaInfoSharp.pdb "$targetDir\MediaInfoSharp.pdb"
+Copy-Item .\Get-MediaInfo.psd1 "$targetDir\Get-MediaInfo.psd1"
+Copy-Item .\Get-MediaInfo.psm1 "$targetDir\Get-MediaInfo.psm1"
+
+$key = 'oy2mgl623cwzlidnkvqqguuvtv5hbsdufmtaeqc3aclfse'
+
+Publish-Module -Path $targetDir -NuGetApiKey $key
