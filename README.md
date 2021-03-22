@@ -22,9 +22,9 @@ Get-MediaInfoSummary
 Installation
 ------------
 
-Installation or download via PowerShellGet:
+Go to the release page and download the release. It contains one PS1 file and two DLL files, keep all three files in the same directory and load the PS1 file via [dot sourcing](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_scripts?view=powershell-7#script-scope-and-dot-sourcing) into your profile.
 
-https://www.powershellgallery.com/packages/Get-MediaInfo
+On x86 replace MediaInfo.dll with the x86 version found on the [MediaInfo website](https://mediaarea.net/en/MediaInfo).
 
 
 Get-MediaInfo
