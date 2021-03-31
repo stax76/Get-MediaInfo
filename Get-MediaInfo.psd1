@@ -1,12 +1,12 @@
 
 @{
     RootModule = 'Get-MediaInfo.psm1'
-    ModuleVersion = '3.5'
+    ModuleVersion = '3.7'
     GUID = '86639e26-2698-42ec-b7f1-c66daca2eb78'
-    Author = 'stax76 (Frank Skare)'
-    CompanyName = 'stax76 (Frank Skare)'
-    Copyright = '(C) 2020 stax76 (Frank Skare). All rights reserved.'
-    Description = 'Complete PowerShell MediaInfo solution'
+    Author = 'Frank Skare (stax76)'
+    CompanyName = 'Frank Skare (stax76)'
+    Copyright = '(C) 2020-2021 Frank Skare (stax76). All rights reserved.'
+    Description = 'PowerShell MediaInfo solution'
     PowerShellVersion = '5.1'
     ProcessorArchitecture = 'Amd64'
     FunctionsToExport = @('Get-MediaInfo', 'Get-MediaInfoValue', 'Get-MediaInfoSummary')
