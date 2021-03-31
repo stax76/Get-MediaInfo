@@ -1,5 +1,5 @@
 
-$targetDir = 'D:\Work'
+$targetDir = 'D:\Work\Get-MediaInfo'
 New-Item -Path $targetDir -ItemType Directory | Out-Null
 Copy-Item .\MediaInfo.dll      "$targetDir\MediaInfo.dll"
 Copy-Item .\MediaInfoSharp.dll "$targetDir\MediaInfoSharp.dll"
