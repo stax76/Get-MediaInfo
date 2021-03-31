@@ -1,6 +1,6 @@
 
-$videoExtensions = "264", "265", "asf", "avc", "avi", "divx", "flv", "h264", "h265", "hevc", "m2ts", "m2v", "m4v", "mkv", "mov", "mp4", "mpeg", "mpg", "mpv", "mts", "rar", "ts", "vob", "webm", "wmv"
-$audioExtensions = "aac", "ac3", "dts", "dtshd", "dtshr", "dtsma", "eac3", "flac", "m4a", "mka", "mp2", "mp3", "mpa", "ogg", "opus", "thd", "thd+ac3", "w64", "wav"
+$videoExtensions = '264', '265', 'asf', 'avc', 'avi', 'divx', 'flv', 'h264', 'h265', 'hevc', 'm2ts', 'm2v', 'm4v', 'mkv', 'mov', 'mp4', 'mpeg', 'mpg', 'mpv', 'mts', 'rar', 'ts', 'vob', 'webm', 'wmv'
+$audioExtensions = 'aac', 'ac3', 'dts', 'dtshd', 'dtshr', 'dtsma', 'eac3', 'flac', 'm4a', 'mka', 'mp2', 'mp3', 'mpa', 'ogg', 'opus', 'thd', 'w64', 'wav'
 $cacheVersion    = 45
 $culture         = [Globalization.CultureInfo]::InvariantCulture
 
@@ -34,7 +34,7 @@ function ConvertStringToLong($value)
 function Get-MediaInfo
 {
     [CmdletBinding()]
-    [Alias("gmi")]
+    [Alias('gmi')]
     Param(
         [parameter(ValueFromPipelineByPropertyName)]
         [Alias('FullName')]
@@ -61,7 +61,7 @@ function Get-MediaInfo
             }
 
             $extension = [IO.Path]::GetExtension($file).TrimStart([char]'.')
-            $chacheFileBase = $file + '-' + (Get-Item $file).Length + '-' + $cacheVersion
+            $chacheFileBase = $file + '-' + (Get-Item -LiteralPath $file).Length + '-' + $cacheVersion
 
             foreach ($char in [IO.Path]::GetInvalidFileNameChars())
             {
@@ -87,9 +87,9 @@ function Get-MediaInfo
 
             if ($Video -and $videoExtensions -contains $extension)
             {
-                if (Test-Path $cacheFile)
+                if (Test-Path -LiteralPath $cacheFile)
                 {
-                    Get-Content $cacheFile -Raw | ConvertFrom-Json
+                    Get-Content -LiteralPath $cacheFile -Raw | ConvertFrom-Json
                 }
                 else
                 {
@@ -131,9 +131,9 @@ function Get-MediaInfo
             }
             elseif ($Audio -and $audioExtensions -contains $extension)
             {
-                if (Test-Path $cacheFile)
+                if (Test-Path -LiteralPath $cacheFile)
                 {
-                    Get-Content $cacheFile -Raw | ConvertFrom-Json
+                    Get-Content -LiteralPath $cacheFile -Raw | ConvertFrom-Json
                 }
                 else
                 {
@@ -155,7 +155,7 @@ function Get-MediaInfo
                     }
 
                     $mi.Dispose()
-                    $obj | ConvertTo-Json | Out-File $cacheFile -Encoding UTF8
+                    $obj | ConvertTo-Json | Out-File -LiteralPath $cacheFile -Encoding UTF8
                     $obj
                 }
             }
@@ -166,7 +166,7 @@ function Get-MediaInfo
 function Get-MediaInfoValue
 {
     [CmdletBinding()]
-    [Alias("gmiv")]
+    [Alias('gmiv')]
     Param(
         [Parameter(
             Mandatory=$true,
@@ -174,7 +174,7 @@ function Get-MediaInfoValue
         [string] $Path,
 
         [Parameter(Mandatory=$true)]
-        [ValidateSet("General", "Video", "Audio", "Text", "Image", "Menu")]
+        [ValidateSet('General', 'Video', 'Audio', 'Text', 'Image', 'Menu')]
         [String] $Kind,
 
         [int] $Index,
@@ -190,7 +190,7 @@ function Get-MediaInfoValue
 
     Process
     {
-        $mi = New-Object MediaInfoSharp -ArgumentList (Convert-Path $Path)
+        $mi = New-Object MediaInfoSharp -ArgumentList (Convert-Path -LiteralPath $Path)
         $value = $mi.GetInfo($Kind, $Index, $Parameter)
         $mi.Dispose()
         return $value
@@ -200,7 +200,7 @@ function Get-MediaInfoValue
 function Get-MediaInfoSummary
 {
     [CmdletBinding()]
-    [Alias("gmis")]
+    [Alias('gmis')]
     Param(
         [Parameter(
             Mandatory = $true,
@@ -223,7 +223,7 @@ function Get-MediaInfoSummary
 
     Process
     {
-        $mi = New-Object MediaInfoSharp -ArgumentList (Convert-Path $Path)
+        $mi = New-Object MediaInfoSharp -ArgumentList (Convert-Path -LiteralPath $Path)
         $value = $mi.GetSummary($Full, $Raw)
         $mi.Dispose()
         ("`r`n" + $value) -split "`r`n"
