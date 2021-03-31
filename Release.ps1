@@ -1,5 +1,5 @@
 
-$targetDir = [Environment]::GetFolderPath('Desktop') + '\Get-MediaInfo'
+$targetDir = 'D:\Work'
 New-Item -Path $targetDir -ItemType Directory | Out-Null
 Copy-Item .\MediaInfo.dll      "$targetDir\MediaInfo.dll"
 Copy-Item .\MediaInfoSharp.dll "$targetDir\MediaInfoSharp.dll"
