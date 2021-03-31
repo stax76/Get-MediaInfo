@@ -2,17 +2,13 @@
 Get-MediaInfo
 =============
 
-Get-MediaInfo is a complete PowerShell MediaInfo solution.
+Get-MediaInfo is a PowerShell MediaInfo solution.
 
-It consists of three PowerShell advanced functions:
+It consists of three functions:
 
-```PowerShell
-Get-MediaInfo
-
-Get-MediaInfoValue
-
-Get-MediaInfoSummary
-```
+- [Get-MediaInfo](#get-mediainfo)
+- [Get-MediaInfoValue](#get-mediainfovalue)
+- [Get-MediaInfoSummary](#get-mediainfosummary)
 
 ![-](Summary.jpg)
 
