@@ -139,7 +139,7 @@ Meg Myers
 ```
 
 
-Get the channel count in a MP3 file. Return types are always strings und if necessary must be cast to integer.
+Get the channel count in a MP3 file. Return types are always strings and if necessary must be cast to integer.
 
 ```PowerShell
 '.\Meg Myers - Desire (Hucci Remix).mp3' | Get-MediaInfoValue -Kind Audio -Parameter 'Channel(s)'
